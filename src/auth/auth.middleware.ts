@@ -22,6 +22,9 @@ import * as userService from '../user/user.service';
   const user = await userService.getUserByName(name);
   if (!user) return next(new Error('USER_DOES_NOT_EXIST'));
 
+  // 在请求主体里添加用户
+  request.body.user = user;
+
   // 下一步
   next();
 };
