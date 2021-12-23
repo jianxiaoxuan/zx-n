@@ -33,5 +33,6 @@ import { signToken } from './auth.service';
   response: Response,
   next: NextFunction
 ) => {
+  console.log(request.user);
   response.sendStatus(200);
 };
