@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "《广州唑下生物科技有限公司》",
   "author": "jianyanbo <97041634@qq.com>",
+  "scripts": {
+    "start:dev": "tsc-watch --onSuccess \"node dist/main.js\""
+  },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "tsc-watch": "^4.2.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.3",
