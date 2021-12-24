@@ -28,8 +28,8 @@ import { FileModel } from './file.model';
 ) => {
   // 准备查询
   const statement = `
-    select * from file
-    where id = ?
+    SELECT * FROM file
+    WHERE id = ?
   `;
 
   // 执行查询
