@@ -46,6 +46,11 @@ router.post(
 );
 
 /**
+ * 单个内容
+ */
+router.get('/posts/:postId', postController.show);
+
+/**
  * 导出路由
  */
 export default router;

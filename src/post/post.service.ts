@@ -211,7 +211,7 @@ export const createPost = async (post: PostModel) => {
       post.content,
       ${sqlFragment.user},
       ${sqlFragment.file},
-      ${sqlFragment.tags},
+      ${sqlFragment.tags}
     FROM post
     ${sqlFragment.leftJoinUser}
     ${sqlFragment.leftJoinOneFile}
