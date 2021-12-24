@@ -15,7 +15,10 @@ const app = express();
 /**
  * 跨域资源共享
  */
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  exposedHeaders: 'X-Total-Count'
+}));
 
 /**
  * 处理 JSON
