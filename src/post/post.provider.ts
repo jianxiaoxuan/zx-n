@@ -12,4 +12,50 @@ export const sqlFragment = {
     LEFT JOIN user
     ON user.id = post.userId
   `,
+  leftJoinOneFile: `
+    LEFT JOIN LATERAL (
+      SELECT *
+      FROM file
+      WHERE file.postId = post.id
+      ORDER BY file.id DESC
+      LIMIT 1
+    ) as file ON post.id = file.postId
+  `,
+  file: `
+    CAST(
+      IF(
+        COUNT(file.id),
+        GROUP_CONCAT(
+          DISTINCT JSON_OBJECT(
+            'id', file.id
+          )
+        ),
+        NULL
+      ) as JSON
+    ) as file
+  `,
+  leftJoinTag: `
+    LEFT JOIN
+      post_tag ON post_tag.postId = post.id
+    LEFT JOIN
+      tag ON post_tag.tagId = tag.id
+  `,
+  tags: `
+    CAST(
+      IF(
+        COUNT(tag.id),
+        CONCAT(
+          '[',
+            GROUP_CONCAT(
+              DISTINCT JSON_OBJECT(
+                'id', tag.id,
+                'name', tag.name
+              )
+            ),
+          ']'
+        ),
+        NULL
+      ) as JSON
+    ) as tags
+  `,
 };
