@@ -4,9 +4,7 @@ import { TagModel } from "./tag.model";
 /**
  * 创建标签
  */
- export const createTag = async (
-  tag: TagModel
-) => {
+ export const createTag = async (tag: TagModel) => {
   // 准备查询
   const statement = `
     INSERT INTO tag
@@ -28,8 +26,9 @@ import { TagModel } from "./tag.model";
 ) => {
   // 准备查询
   const statement = `
-    SELECT id, name FROM tag
-    WHERE ?
+    SELECT id, name 
+    FROM tag
+    WHERE name = ?
   `;
 
   // 执行查询
