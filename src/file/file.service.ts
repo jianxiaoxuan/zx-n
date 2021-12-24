@@ -9,8 +9,8 @@ import { FileModel } from './file.model';
 ) => {
   // 准备查询
   const statement = `
-    insert into file
-    set ?
+    INSERT INTO file
+    SET ?
   `;
 
   // 执行查询
@@ -18,4 +18,23 @@ import { FileModel } from './file.model';
 
   // 提供数据
   return data;
+};
+
+/**
+ * 按 ID 查找文件
+ */
+ export const findFileById = async (
+  fileId: number
+) => {
+  // 准备查询
+  const statement = `
+    select * from file
+    where id = ?
+  `;
+
+  // 执行查询
+  const [data] = await connection.promise().query(statement, fileId);
+
+  // 提供数据
+  return data[0];
 };
