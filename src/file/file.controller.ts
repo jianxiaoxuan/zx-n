@@ -57,10 +57,11 @@ import { createFile, findFileById } from './file.service';
     // 做出响应
     response.sendFile(file.filename, {
       root: 'uploads',
-      Headers: {
+      headers: {
         'Content-Type': file.mimetype,
       },
     });
+    console.log(file.mimetype);
   } catch (error) {
     next(error);
   }
