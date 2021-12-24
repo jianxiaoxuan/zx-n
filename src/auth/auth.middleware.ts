@@ -82,7 +82,7 @@ export const accessControl = (options: AccessControlOptions) => {
   ) => {
     console.log('👮‍♀️ 访问控制');
 
-    // 结构选项
+    // 解构选项
     const { possession } = options;
 
     // 当前用户 ID
@@ -93,7 +93,7 @@ export const accessControl = (options: AccessControlOptions) => {
 
     // 准备资源
     const resourceIdParam = Object.keys(request.params)[0];
-    const resourceType = resourceIdParam.replace('id', '');
+    const resourceType = resourceIdParam.replace('Id', '');
     const resourceId = parseInt(request.params[resourceIdParam], 10);
 
     // 检查资源拥有权
