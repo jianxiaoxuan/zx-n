@@ -44,7 +44,7 @@ interface GetUserOptions {
       const [data] = await connection.promise().query(statement, param);
     
       // 提供数据
-      return data[0].id ? data[0] : null;
+      return data[0] != null && data[0].id ? data[0] : null;
     };
  };
 
