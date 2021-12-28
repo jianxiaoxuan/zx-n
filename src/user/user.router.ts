@@ -10,6 +10,10 @@ const router = express.Router();
 router.post('/users', validateUserData, userController.store);
 
 /**
+ * 用户账户
+ */
+router.get('/users/:userId', userController.show);
+/**
  * 导出路由
  */
 export default router;

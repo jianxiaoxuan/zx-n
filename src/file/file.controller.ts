@@ -61,7 +61,7 @@ import { createFile, findFileById } from './file.service';
         'Content-Type': file.mimetype,
       },
     });
-    console.log(file.mimetype);
+
   } catch (error) {
     next(error);
   }
