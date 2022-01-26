@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { createTag, getTagByName } from './tag.service';
+import { getCourseById } from '../course/course.service';
+import { createTag, getTagByName, getCourseTagById } from './tag.service';
 
 /**
  * 创建标签
@@ -24,6 +25,30 @@ import { createTag, getTagByName } from './tag.service';
 
     // 做出响应
     response.status(201).send(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * 按标签 ID 找出内容列表
+ */
+ export const courseTagShow = async (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
+  // 准备数据
+  const { tagId } = request.params;
+
+  console.log(request.params);
+
+  // 调取内容
+  try {
+    const course = await getCourseTagById(parseInt(tagId, 10));
+
+    // 做出响应
+    response.send(course);
   } catch (error) {
     next(error);
   }

@@ -10,6 +10,11 @@ const router = express.Router();
 router.post('/tags', authGuard, tagController.store);
 
 /**
+ * 按标签 ID 查找内容列表
+ */
+ router.get('/courses/tag/:tagId', tagController.courseTagShow);
+
+/**
  * 导出路由
  */
 export default router;

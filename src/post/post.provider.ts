@@ -19,7 +19,8 @@ export const sqlFragment = {
       WHERE file.postId = post.id
       ORDER BY file.id DESC
       LIMIT 1
-    ) as file ON post.id = file.postId
+    ) AS file
+      ON file.postId = post.id
   `,
   file: `
     CAST(
@@ -32,7 +33,18 @@ export const sqlFragment = {
         ),
         NULL
       ) as JSON
-    ) as file
+    ) as file,
+    CAST(
+      IF(
+        COUNT(file.url),
+        GROUP_CONCAT(
+          DISTINCT JSON_OBJECT(
+            'url', file.url
+          )
+        ),
+        NULL
+      ) as JSON
+    ) as url
   `,
   leftJoinTag: `
     LEFT JOIN

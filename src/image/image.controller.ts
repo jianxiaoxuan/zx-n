@@ -1,37 +1,30 @@
 import { Request, Response, NextFunction } from 'express';
 import _ from 'lodash';
-import { createFile, findFileById } from './file.service';
+import { createImage, findImageById } from './image.service';
 
 /**
  * 上传文件
  */
- export const store = async (
+export const store = async (
   request: Request,
   response: Response,
   next: NextFunction
 ) => {
-  console.log(request.file);
   // 当前用户
   const {id: userId} = request.user;
 
-  // 所属内容
-  const {post: postId} = request.query;
-
   // 文件信息
-  const fileInfo = _.pick(request.file, [
+  const imageInfo = _.pick(request.file, [
     'originalname',
     'mimetype',
     'filename',
-    'size',
-    'url'
   ]);
 
   try {
     // 保持文件信息
-    const data = await createFile({
-      ...fileInfo,
-      userId,
-      postId
+    const data = await createImage({
+      ...imageInfo,
+      userId
     })
 
     // 做出响应
@@ -39,7 +32,7 @@ import { createFile, findFileById } from './file.service';
   } catch (error) {
     next(error);
   }
-};
+}
 
 /**
  * 文件服务
@@ -50,17 +43,17 @@ import { createFile, findFileById } from './file.service';
   next: NextFunction
 ) => {
   // 从抵制参数里得到文件 ID
-  const { fileId } = request.params;
+  const { imageId } = request.params;
 
   try {
     // 查找文件信息
-    const file = await findFileById(parseInt(fileId, 10));
+    const image = await findImageById(parseInt(imageId, 10));
 
     // 做出响应
-    response.sendFile(file.filename, {
-      root: 'uploads',
+    response.sendFile(image.filename, {
+      root: 'images',
       headers: {
-        'Content-Type': file.mimetype,
+        'Content-Type': image.mimetype,
       },
     });
 

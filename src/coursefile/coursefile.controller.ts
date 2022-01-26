@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import _ from 'lodash';
-import { createFile, findFileById } from './file.service';
+import { createCourseFile, findCourseFileById } from './coursefile.service';
 
 /**
  * 上传文件
@@ -15,23 +15,21 @@ import { createFile, findFileById } from './file.service';
   const {id: userId} = request.user;
 
   // 所属内容
-  const {post: postId} = request.query;
+  const {course: courseId} = request.query;
 
   // 文件信息
   const fileInfo = _.pick(request.file, [
     'originalname',
     'mimetype',
-    'filename',
-    'size',
-    'url'
+    'filename'
   ]);
 
   try {
     // 保持文件信息
-    const data = await createFile({
+    const data = await createCourseFile({
       ...fileInfo,
       userId,
-      postId
+      courseId
     })
 
     // 做出响应
@@ -54,11 +52,11 @@ import { createFile, findFileById } from './file.service';
 
   try {
     // 查找文件信息
-    const file = await findFileById(parseInt(fileId, 10));
+    const file = await findCourseFileById(parseInt(fileId, 10));
 
     // 做出响应
     response.sendFile(file.filename, {
-      root: 'uploads',
+      root: 'coursefile',
       headers: {
         'Content-Type': file.mimetype,
       },

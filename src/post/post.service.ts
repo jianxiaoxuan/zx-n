@@ -16,7 +16,7 @@ export interface GetPostsOptionsPagination {
   offset: number;
 }
 
-interface GetPostsOptions {
+export interface GetPostsOptions {
   sort?: string;
   filter?: GetPostsOptionsFilter;
   pagination?: GetPostsOptionsPagination;
@@ -39,12 +39,10 @@ export const getPosts = async (options: GetPostsOptions) => {
       post.title,
       post.content,
       ${sqlFragment.user},
-      ${sqlFragment.file},
-      ${sqlFragment.tags}
+      ${sqlFragment.file}
     FROM post
     ${sqlFragment.leftJoinUser}
     ${sqlFragment.leftJoinOneFile}
-    ${sqlFragment.leftJoinTag}
     WHERE ${filter.sql}
     GROUP BY post.id
     ORDER BY ${sort}
@@ -109,64 +107,64 @@ export const createPost = async (post: PostModel) => {
   return data;
 };
 
-/**
- * 保持内容标签
- */
- export const createPostTag = async (
-  postId: number, tagId: number
-) => {
-  // 准备查询
-  const statement = `
-    INSERT INTO post_tag (postId, tagId)
-    VALUES(?, ?)
-  `;
+// /**
+//  * 保持内容标签
+//  */
+//  export const createPostTag = async (
+//   postId: number, tagId: number
+// ) => {
+//   // 准备查询
+//   const statement = `
+//     INSERT INTO post_tag (postId, tagId)
+//     VALUES(?, ?)
+//   `;
 
-  // 执行查询
-  const [data] = await connection.promise().query(statement, [postId, tagId]);
+//   // 执行查询
+//   const [data] = await connection.promise().query(statement, [postId, tagId]);
 
-  // 提供数据
-  return data;
-};
+//   // 提供数据
+//   return data;
+// };
 
-/**
- * 检查内容标签
- */
- export const postHasTag = async (
-  postId: number,
-  tagId: number
-) => {
-  // 准备查询
-  const statement = `
-    SELECT * FROM post_tag
-    WHERE postId=? AND tagId=?
-  `;
+// /**
+//  * 检查内容标签
+//  */
+//  export const postHasTag = async (
+//   postId: number,
+//   tagId: number
+// ) => {
+//   // 准备查询
+//   const statement = `
+//     SELECT * FROM post_tag
+//     WHERE postId=? AND tagId=?
+//   `;
 
-  // 执行查询
-  const [data] = await connection.promise().query(statement, [postId, tagId]);
+//   // 执行查询
+//   const [data] = await connection.promise().query(statement, [postId, tagId]);
 
-  // 提供数据
-  return data[0] ? true : false;
-};
+//   // 提供数据
+//   return data[0] ? true : false;
+// };
 
-/**
- * 移除内容标签
- */
- export const deletePostTag = async (
-  postId: number,
-  tagId: number
-) => {
-  // 准备查询
-  const statement = `
-    DELETE FROM post_tag
-    WHERE postId = ? AND tagId = ?
-  `;
+// /**
+//  * 移除内容标签
+//  */
+//  export const deletePostTag = async (
+//   postId: number,
+//   tagId: number
+// ) => {
+//   // 准备查询
+//   const statement = `
+//     DELETE FROM post_tag
+//     WHERE postId = ? AND tagId = ?
+//   `;
 
-  // 执行查询
-  const [data] = await connection.promise().query(statement, [postId, tagId]);
+//   // 执行查询
+//   const [data] = await connection.promise().query(statement, [postId, tagId]);
 
-  // 提供数据
-  return data;
-};
+//   // 提供数据
+//   return data;
+// };
 
 /**
  * 统计内容数量
@@ -210,12 +208,10 @@ export const createPost = async (post: PostModel) => {
       post.title,
       post.content,
       ${sqlFragment.user},
-      ${sqlFragment.file},
-      ${sqlFragment.tags}
+      ${sqlFragment.file}
     FROM post
     ${sqlFragment.leftJoinUser}
     ${sqlFragment.leftJoinOneFile}
-    ${sqlFragment.leftJoinTag}
     WHERE post.id = ?
   `;
 
@@ -229,4 +225,4 @@ export const createPost = async (post: PostModel) => {
 
   // 提供数据
   return data[0];
-};
+}; 

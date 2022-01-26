@@ -29,22 +29,22 @@ router.post('/posts', authGuard, postController.store);
   /**
  * 添加内容标签
  */
-router.post(
-  '/posts/:postId/tag', 
-  authGuard, 
-  accessControl({ possession: true }), 
-  postController.storePostTag
-);
+// router.post(
+//   '/posts/:postId/tag', 
+//   authGuard, 
+//   accessControl({ possession: true }), 
+//   postController.storePostTag
+// );
 
 /**
  * 移除内容标签
  */
- router.delete(
-  '/posts/:postId/tag', 
-  authGuard, 
-  accessControl({ possession: true }), 
-  postController.destroyPostTag
-);
+//  router.delete(
+//   '/posts/:postId/tag', 
+//   authGuard, 
+//   accessControl({ possession: true }), 
+//   postController.destroyPostTag
+// );
 
 /**
  * 单个内容
