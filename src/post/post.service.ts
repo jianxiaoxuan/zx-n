@@ -34,18 +34,31 @@ export const getPosts = async (options: GetPostsOptions) => {
   }
 
   const statement = `
-    SELECT 
+    SELECT
       post.id,
       post.title,
       post.content,
-      ${sqlFragment.user},
-      ${sqlFragment.file}
+      JSON_OBJECT(
+        'id', user.id,
+        'name', user.name
+      ) as user,
+    JSON_ARRAYAGG(
+      IF(
+        file.id,
+        JSON_OBJECT(
+        'id', file.id
+        ),
+        NULL
+      )
+    ) as files
     FROM post
-    ${sqlFragment.leftJoinUser}
-    ${sqlFragment.leftJoinOneFile}
-    WHERE ${filter.sql}
-    GROUP BY post.id
-    ORDER BY ${sort}
+    LEFT JOIN user
+      ON user.id = post.userId
+    LEFT JOIN file
+      ON file.postId = post.id
+    GROUP BY 
+      post.id
+    ORDER BY post.id DESC
     LIMIT ?
     OFFSET ?
   `;
@@ -203,15 +216,28 @@ export const createPost = async (post: PostModel) => {
 ) => {
   // 准备查询
   const statement = `
-    SELECT
+      SELECT
       post.id,
       post.title,
       post.content,
-      ${sqlFragment.user},
-      ${sqlFragment.file}
+      JSON_OBJECT(
+        'id', user.id,
+        'name', user.name
+      ) as user,
+    JSON_ARRAYAGG(
+      IF(
+        file.id,
+        JSON_OBJECT(
+        'id', file.id
+        ),
+        NULL
+      )
+    ) as files
     FROM post
-    ${sqlFragment.leftJoinUser}
-    ${sqlFragment.leftJoinOneFile}
+    LEFT JOIN user
+      ON user.id = post.userId
+    LEFT JOIN file
+      ON file.postId = post.id
     WHERE post.id = ?
   `;
 

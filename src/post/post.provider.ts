@@ -33,18 +33,7 @@ export const sqlFragment = {
         ),
         NULL
       ) as JSON
-    ) as file,
-    CAST(
-      IF(
-        COUNT(file.url),
-        GROUP_CONCAT(
-          DISTINCT JSON_OBJECT(
-            'url', file.url
-          )
-        ),
-        NULL
-      ) as JSON
-    ) as url
+    ) as file
   `,
   leftJoinTag: `
     LEFT JOIN
