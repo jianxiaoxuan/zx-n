@@ -40,12 +40,12 @@ export const store = async (
   next: NextFunction
 ) => {
   // 准备数据
-  const {title, content} = request.body;
+  const {title, content, short} = request.body;
   const { id: userId } = request.user;
 
   // 创建内容
   try {
-    const data = await createPost({ title, content, userId });
+    const data = await createPost({ title, content, short, userId });
     response.status(201).send(data);
   } catch (error) {
     next(error);
