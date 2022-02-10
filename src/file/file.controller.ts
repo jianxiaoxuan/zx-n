@@ -23,7 +23,6 @@ import { createFile, findFileById } from './file.service';
     'mimetype',
     'filename',
     'size',
-    'url'
   ]);
 
   try {
