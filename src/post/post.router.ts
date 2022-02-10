@@ -12,7 +12,7 @@ const router = express.Router();
 router.get('/posts', sort, filter, paginate(POSTS_PER_PAGE), postController.index);
 
 /**
- * 创建内容
+ * 创建内容 
  */
 router.post('/posts', authGuard, postController.store);
 

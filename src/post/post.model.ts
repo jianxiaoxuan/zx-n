@@ -4,4 +4,4 @@ export class PostModel {
   content?: string;
   short?: string;
   userId?: number;
-}
+} 

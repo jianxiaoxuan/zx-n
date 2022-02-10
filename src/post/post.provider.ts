@@ -59,4 +59,4 @@ export const sqlFragment = {
       ) as JSON
     ) as tags
   `,
-};
+}; 
