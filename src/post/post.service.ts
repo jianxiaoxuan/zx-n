@@ -37,6 +37,7 @@ export const getPosts = async (options: GetPostsOptions) => {
     SELECT
       post.id,
       post.title,
+      post.short, 
       post.content,
       JSON_OBJECT(
         'id', user.id,
