@@ -219,6 +219,7 @@ export const createPost = async (post: PostModel) => {
       SELECT
       post.id,
       post.title,
+      post.short,
       post.content,
       JSON_OBJECT(
         'id', user.id,
