@@ -64,7 +64,7 @@ export const store = async (
   const {postId} = request.params;
 
   // 准备数据
-  const post = _.pick(request.body, ['title', 'content']);
+  const post = _.pick(request.body, ['title', 'content', 'short']);
 
   // 更新
   try {
